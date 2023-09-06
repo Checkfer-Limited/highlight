@@ -83,7 +83,7 @@ services:
 
     backend:
         container_name: backend
-        image: ghcr.io/highlight/highlight-backend:latest
+        image: callycodes/highlight-backend:1.0
         healthcheck:
             test: ['CMD', 'curl', '-f', '-k', 'https://localhost:8082/health']
             start_period: 60s

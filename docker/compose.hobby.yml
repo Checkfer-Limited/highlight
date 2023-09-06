@@ -27,6 +27,7 @@ x-backend-env: &backend-env
         - ENVIRONMENT
         - FIREBASE_SECRET
         - FRONTEND_URI
+        - IN_DOCKER=true
         - AWS_ACCESS_KEY_ID
         - AWS_S3_BUCKET_NAME
         - USE_DISK_STORAGE

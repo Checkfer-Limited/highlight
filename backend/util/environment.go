@@ -14,6 +14,7 @@ var (
 	InDocker      = os.Getenv("IN_DOCKER")
 	InDockerGo    = os.Getenv("IN_DOCKER_GO")
 	Version       = os.Getenv("REACT_APP_COMMIT_SHA")
+	IsDiskStorage = os.Getenv("USE_DISK_STORAGE")
 )
 
 func IsHubspotEnabled() bool {
@@ -34,6 +35,10 @@ func IsDevOrTestEnv() bool {
 
 func IsOnPrem() bool {
 	return OnPrem == "true"
+}
+
+func IsDiskStorage() bool {
+	return IsDiskStorage == "true"
 }
 
 func IsInDocker() bool {

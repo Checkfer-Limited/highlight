@@ -306,7 +306,7 @@ func main() {
 	stripeClient.Init(stripeApiKey, nil)
 
 	var storageClient storage.Client
-	if util.IsInDocker() {
+	if util.IsDiskStorage() {
 		log.WithContext(ctx).Info("in docker: using filesystem for object storage")
 		fsRoot := "/tmp"
 		if os.Getenv("OBJECT_STORAGE_FS") != "" {

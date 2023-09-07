@@ -1,6 +1,6 @@
 FROM --platform=$BUILDPLATFORM node:18-alpine as frontend-build
 
-RUN apk update && apk add --no-cache build-base chromium python3
+RUN apk update
 
 WORKDIR /highlight
 COPY .npmignore .prettierrc .prettierignore graphql.config.js tsconfig.json turbo.json .yarnrc.yml package.json yarn.lock ./

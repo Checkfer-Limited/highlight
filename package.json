@@ -69,8 +69,8 @@
 		"test:all": "yarn turbo run test --filter=!render --filter=!@highlight-run/rrweb --filter=!@highlight-run/rrweb-types --filter=!@highlight-run/rrweb-snapshot --filter=!@highlight-run/rrweb-player --filter=!@highlight-run/rrdom --filter=!@highlight-run/rrdom-nodejs",
 		"test:render": "yarn turbo run test --filter=render",
 		"sourcemaps:frontend": "yarn workspace @highlight-run/frontend sourcemaps",
-		"docker-build:backend": "docker build --platform linux/amd64,linux/arm64/v8 -t highlight-backend:latest -f ./docker/backend.Dockerfile . && docker tag highlight-backend:latest callycodes/highlight-backend:latest",
-		"docker-build:frontend": "yarn build:frontend && docker build --platform linux/arm64/v8 -t callycodes/highlight-frontend:latest -f ./docker/frontend.new.Dockerfile . && docker tag callycodes/highlight-frontend:latest callycodes/highlight-frontend:latest && docker push callycodes/highlight-frontend:latest"
+		"docker-build:backend": "docker build --platform linux/amd64 -t callycodes/highlight-backend:latest -f ./docker/backend.Dockerfile . && docker tag callycodes/highlight-backend:latest callycodes/highlight-backend:latest && docker push callycodes/highlight-backend:latest",
+		"docker-build:frontend": "docker build --platform linux/amd64 -t callycodes/highlight-frontend:latest -f ./docker/frontend.Dockerfile . && docker tag callycodes/highlight-frontend:latest callycodes/highlight-frontend:latest && docker push callycodes/highlight-frontend:latest"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.1.0",

@@ -96,6 +96,7 @@ type Client interface {
 	UploadAsset(ctx context.Context, uuid string, contentType string, reader io.Reader) error
 	ReadGitHubFile(ctx context.Context, repoPath string, fileName string, version string) ([]byte, error)
 	PushGitHubFile(ctx context.Context, repoPath string, fileName string, version string, fileBytes []byte) (*int64, error)
+	TestConnection(ctx context.Context)
 }
 
 type FilesystemClient struct {
@@ -949,6 +950,63 @@ func (s *S3Client) GetSourcemapVersions(ctx context.Context, projectId int) ([]s
 	return lo.Map(output.CommonPrefixes, func(t s3Types.CommonPrefix, i int) string {
 		return *t.Prefix
 	}), nil
+}
+
+func (f *FilesystemClient) TestConnection(ctx context.Context) {
+
+}
+
+func (s *S3Client) TestConnection(ctx context.Context) {
+	log.WithContext(ctx).Info("Testing S3 client connection")
+
+	_, err := s.S3ClientEast2.PutObject(ctx, &s3.PutObjectInput{
+		Bucket: pointy.String(S3SourceMapBucketNameNew),
+		Key:    pointy.String("test-file-east"),
+		Body:   strings.NewReader("Hello, world!"),
+	})
+
+	if err != nil {
+		log.WithContext(ctx).Fatalf("[EAST] Failed to upload test file: %v", err)
+	} else {
+		log.WithContext(ctx).Info("[EAST] Successfully uploaded test file.")
+	}
+
+	// Delete
+	_, err = s.S3ClientEast2.DeleteObject(ctx, &s3.DeleteObjectInput{
+		Bucket: pointy.String(S3SourceMapBucketNameNew),
+		Key:    pointy.String("test-file-east"),
+	})
+
+	if err != nil {
+		log.WithContext(ctx).Fatalf("[EAST] Failed to delete test file: %v", err)
+	} else {
+		log.WithContext(ctx).Info("[EAST] Successfully deleted test file.")
+	}
+
+	_, err = s.S3Client.PutObject(ctx, &s3.PutObjectInput{
+		Bucket: pointy.String(S3SourceMapBucketNameNew),
+		Key:    pointy.String("test-file-west"),
+		Body:   strings.NewReader("Hello, world!"),
+	})
+
+	if err != nil {
+		log.WithContext(ctx).Fatalf("[WEST] Failed to upload test file: %v", err)
+	} else {
+		log.WithContext(ctx).Info("[WEST] Successfully uploaded test file.")
+	}
+
+	// Delete
+	_, err = s.S3Client.DeleteObject(ctx, &s3.DeleteObjectInput{
+		Bucket: pointy.String(S3SourceMapBucketNameNew),
+		Key:    pointy.String("test-file-west"),
+	})
+
+	if err != nil {
+		log.WithContext(ctx).Fatalf("[WEST] Failed to delete test file: %v", err)
+	} else {
+		log.WithContext(ctx).Info("{WEST] Successfully deleted test file.")
+	}
+
 }
 
 func (s *S3Client) githubBucketKey(repoPath string, version string, fileName string) *string {

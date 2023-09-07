@@ -323,6 +323,9 @@ func main() {
 		if storageClient, err = storage.NewS3Client(ctx); err != nil {
 			log.WithContext(ctx).Fatalf("error creating s3 storage client: %v", err)
 		}
+
+		log.WithContext(ctx).Info("S3 Client created, testing connection")
+		storageClient.TestConnection(ctx)
 	}
 
 	kafkaProducer := kafkaqueue.New(ctx, kafkaqueue.GetTopic(kafkaqueue.GetTopicOptions{Type: kafkaqueue.TopicTypeDefault}), kafkaqueue.Producer, nil)

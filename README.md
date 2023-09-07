@@ -1,15 +1,5 @@
 <p align="center">
-  <img width="2051" alt="docs-thumbnail" src="https://user-images.githubusercontent.com/20292680/233754540-409ee4cf-beab-46b1-b313-d2d717a87fd6.png">
-</p>
-<p align="center">
-  <a href='http://makeapullrequest.com'><img alt='PRs Welcome' src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields'/></a>
-  <a href='https://highlight.io/community'><img alt="Join Discord Community" src="https://img.shields.io/badge/discord%20community-join-blue"/></a>
-  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/highlight/highlight"/>
-  <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/highlight/highlight"/>
-</p>
-
-<p align="center">
-  <a href="https://highlight.io/docs">Docs</a> - <a href="https://highlight.io/community">Community (Support & Feedback)</a> - <a href="https://github.com/highlight/highlight/issues/new?assignees=&labels=external+bug+%2F+request&template=feature_request.md&title=">Feature request</a> - <a href="https://github.com/highlight/highlight/issues/new?assignees=&labels=external+bug+%2F+request&template=bug_report.md&title=">Bug report</a>
+  <img width="1500" alt="docs-thumbnail" src="https://orderpay.com/wp-content/uploads/OrderPay_Logo_Black.svg">
 </p>
 
 # [highlight.io](https://highlight.io): The open-source, fullstack monitoring platform.

@@ -105,7 +105,7 @@ services:
 
     frontend:
         container_name: frontend
-        image: ghcr.io/highlight/highlight-frontend:latest
+        image: callycodes/highlight-frontend:latest
         healthcheck:
             test: ['CMD', 'curl', '-f', '-k', 'https://localhost:3000/']
             start_period: 5s

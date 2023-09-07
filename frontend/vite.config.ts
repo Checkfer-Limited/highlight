@@ -45,6 +45,8 @@ export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), '')
 	validateSafeAllowList(env)
 
+	console.log('DEFINED SOMETHING')
+	console.log(mode)
 	return {
 		plugins: [
 			react(),

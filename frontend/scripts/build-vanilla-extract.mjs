@@ -39,41 +39,45 @@ export const run = async ({ rootDirectory }) => {
 
 	const build = async () => {
 		console.log(new Date(), 'building vanilla extract entry points')
-		await esbuild.build({
-			entryPoints: Object.values(entryPoints),
-			bundle: true,
-			// TODO: support user supplied sourcemaps
-			// sourcemap: true,
-			sourcemap: false,
-			format: 'esm',
-			platform: 'browser',
-			outdir: outputDirectory,
-			outbase: workingDirectory,
-			minify: true,
-			splitting: true,
-			target: 'esnext',
-			// Working directory apparently affects vanilla extract's hashes?
-			// Using rootDirectory to stay consistent with vite setup
-			absWorkingDir: rootDirectory,
-			plugins: [
-				vanillaExtractPlugin({
-					// We don't output css here, only the js modules for each stylesheet entrypoint
-					outputCss: false,
-					identifiers: 'short',
-				}),
-			],
-			external: [
-				...Object.keys(packageJson.dependencies).flatMap((pkg) => [
-					pkg,
-					`${pkg}/*`,
-				]),
-				...Object.keys(packageJson.devDependencies).flatMap((pkg) => [
-					pkg,
-					`${pkg}/*`,
-				]),
-			],
-			logLevel: 'warning',
-		})
+		try {
+			await esbuild.build({
+				entryPoints: Object.values(entryPoints),
+				bundle: true,
+				// TODO: support user supplied sourcemaps
+				// sourcemap: true,
+				sourcemap: false,
+				format: 'esm',
+				platform: 'browser',
+				outdir: outputDirectory,
+				outbase: workingDirectory,
+				minify: true,
+				splitting: true,
+				target: 'esnext',
+				// Working directory apparently affects vanilla extract's hashes?
+				// Using rootDirectory to stay consistent with vite setup
+				absWorkingDir: rootDirectory,
+				plugins: [
+					vanillaExtractPlugin({
+						// We don't output css here, only the js modules for each stylesheet entrypoint
+						outputCss: false,
+						identifiers: 'short',
+					}),
+				],
+				external: [
+					...Object.keys(packageJson.dependencies).flatMap((pkg) => [
+						pkg,
+						`${pkg}/*`,
+					]),
+					...Object.keys(packageJson.devDependencies).flatMap(
+						(pkg) => [pkg, `${pkg}/*`],
+					),
+				],
+				logLevel: 'warning',
+			})
+		} catch (err) {
+			console.log('Big error')
+			console.log(err)
+		}
 		console.log(new Date(), 'built vanilla extract entry points')
 		return
 	}
